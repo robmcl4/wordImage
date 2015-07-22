@@ -6,7 +6,6 @@ def set_text_font(fontpath):
     bpy.ops.font.open(filepath=fontpath)
 
 def scale_text(string_replace):
-    # print(dir(bpy.context))
     bpy.context.scene.objects['Text'].data.body = string_replace
     textObj = bpy.data.objects['Text']
     textObj.scale.xyz = 1
@@ -15,9 +14,9 @@ def scale_text(string_replace):
     bpy.context.scene.update()
     textObj.location.y = 0 - (textObj.dimensions.y / 2)
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
-    # bpy.context.area.type = "VIEW_3D"
+    bpy.context.area.type = "VIEW_3D"
     bpy.ops.view3d.snap_selected_to_cursor(use_offset=False)
-    # bpy.context.area.type = "TEXT_EDITOR"
+    bpy.context.area.type = "TEXT_EDITOR"
 
 def render_scene(filepath, anti_aliasing=True):
     render.use_antialiasing = anti_aliasing
