@@ -1,5 +1,6 @@
 # wordImage
-makes a word or letter into an image
+makes a word or letter into a 16x16 PNG image. Throws all images into a images folder.
+Should be run from the command line
 
 `<blender executable> -b fontRender.blend -P render_letters.py -- --fonts <fonts...> --chars <strings...>`
 
