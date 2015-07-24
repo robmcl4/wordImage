@@ -1,0 +1,11 @@
+# wordImage
+makes a word or letter into an image
+
+`<blender executable> -b fontRender.blend -P render_letters.py -- --fonts <fonts...> --chars <strings...>`
+
+### example
+on windows:
+
+`blender.exe -b fontRender.blend -P render_letters.py -- --fonts fonts/impact.ttf fonts/georgia.ttf --chars A B C`
+
+Gives you characters A, B, and C in fonts impact and georgia (and Bfont which comes default with blender)
