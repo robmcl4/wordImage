@@ -1,9 +1,17 @@
 import bpy
-override = {'snap_selected_to_cursor': list(bpy.ops.view3d)}
-bpy.ops.object.delete(override)
+import sys
+argv = sys.argv
 
-def set_text_font(fontpath):
+if ("--fonts" in argv) and ("--chars" in argv):
+    fonts = argv[argv.index("--fonts")+1:argv.index("--chars")]
+if "--chars" in argv:
+    chars = argv[argv.index("--chars")+1:]
+
+def add_font(fontpath):
     bpy.ops.font.open(filepath=fontpath)
+
+def set_font(font):
+    bpy.data.curves["Text"].font = font
 
 def scale_text(string_replace):
     bpy.context.scene.objects['Text'].data.body = string_replace
@@ -14,14 +22,20 @@ def scale_text(string_replace):
     bpy.context.scene.update()
     textObj.location.y = 0 - (textObj.dimensions.y / 2)
     bpy.ops.object.origin_set(type='ORIGIN_GEOMETRY')
-    bpy.context.area.type = "VIEW_3D"
-    bpy.ops.view3d.snap_selected_to_cursor(use_offset=False)
-    bpy.context.area.type = "TEXT_EDITOR"
+    bpy.context.object.location = [0,0,0]
 
 def render_scene(filepath, anti_aliasing=True):
-    render.use_antialiasing = anti_aliasing
-    bpy.context.scene.render.filepath = "//" + filepath
-    bpy.ops.render.render( write_still=True )
+    bpy.context.scene.render.use_antialiasing = anti_aliasing
+    bpy.context.scene.render.filepath = "//images/" + filepath
+    bpy.ops.render.render(write_still=True)
 
-scale_text("A")
-render_scene("A")
+
+# main code
+for fontIndex in range(len(fonts)):
+    add_font(fonts[fontIndex])
+
+for font in bpy.data.fonts.values():
+    set_font(font)
+    for charIndex in range(len(chars)):
+        scale_text(chars[charIndex])
+        render_scene(font.name + "_" + chars[charIndex])
