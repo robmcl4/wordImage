@@ -9,4 +9,4 @@ on windows:
 
 `blender.exe -b fontRender.blend -P render_letters.py -- --fonts fonts/impact.ttf fonts/georgia.ttf --chars A B C`
 
-Gives you characters A, B, and C in fonts impact and georgia (and Bfont which comes default with blender)
+Gives you characters A, B, and C in fonts impact and georgia (and Bfont which comes default with blender). It's legit!
